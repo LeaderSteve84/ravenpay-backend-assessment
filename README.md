@@ -47,13 +47,11 @@ ravenpay-backend-assessment/
 └── README.md
 
 
----
 
 ## 🚀 Getting Started
 
 ### 1. Clone the Repository
 
-```bash
 git clone https://github.com/LeaderSteve84/ravenpay-backend-assessment.git
 cd ravenpay-backend-assessment
 
@@ -78,21 +76,21 @@ npx knex migrate:latest
 ### 5. Run the Application
 npm start
 
-🧪 Running Tests
+### 🧪 Running Tests
 npm test
 
-📮 API Documentation
+### 📮 API Documentation
 All API endpoints are documented in Postman.
 🔗 Postman Collection: Click here to view
 
-🧾 Important Notes
+### 🧾 Important Notes
 Webhooks are tested using webhook.site
 Transfers are tested with max amount 100 NGN, per Ravenpay instructions
 This application integrates with the official Raven Atlas API
 
-📌 Author
+### 📌 Author
 Stephen Adah
 GitHub: @LeaderSteve84
 
-📄 License
+### 📄 License
 This project is licensed for educational purposes as part of a technical assessment.
