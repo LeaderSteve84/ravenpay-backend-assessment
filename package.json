@@ -1,0 +1,30 @@
+{
+  "name": "ravenpay-backend-assessment",
+  "version": "1.0.0",
+  "description": "A backend API for a money transfer application built as part of the Ravenpay Backend Engineer assessment. The project includes user authentication, virtual account generation, webhook handling for deposits, interbank transfers via Raven Atlas API, and transaction history retrieval.",
+  "main": "app.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.11.0",
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "knex": "^3.1.0",
+    "mysql2": "^3.14.2"
+  },
+  "devDependencies": {
+    "jest": "^30.0.5",
+    "nodemon": "^3.1.10",
+    "supertest": "^7.1.4"
+  }
+}
