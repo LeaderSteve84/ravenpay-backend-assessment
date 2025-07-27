@@ -7,8 +7,8 @@ exports.up = function (knex) {
     table.increments('id').primary();
     table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE');
     table.string('account_number').notNullable();
-    table.string('bank_code').notNullable();
-    table.string('bank_name').notNullable();
+    table.string('account_name').notNullable();
+    table.string('bank').notNullable();
     table.timestamps(true, true);
   });
 };
