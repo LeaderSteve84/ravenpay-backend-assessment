@@ -1,9 +1,10 @@
 const db = require('../db/connection');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { createVirtualAccount } = require('../services/ravenService');
 
 const signup = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, phone } = req.body;
 
   try {
     const existingUser = await db('users').where({ email }).first();
@@ -12,15 +13,38 @@ const signup = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const [userId] = await db('users')
-      .insert({ name, email, password: hashedPassword })
+      .insert({ name, email, password: hashedPassword, phone })
     
     const user = await db('users')
       .where({ id: userId })
-      .select('id', 'name', 'email')
+      .select('id', 'name', 'email', 'phone')
       .first();
 
-    res.status(201).json({ message: 'User created successfully', user });
+    // Create virtual account via Raven
+    console.log('Creating Raven account for:', user.email);
+
+    const ravenAccount = await createVirtualAccount(user);
+
+    console.log('Raven account response:', ravenAccount);
+
+    // Save to accounts table
+    const accountData = {
+      user_id: user.id,
+      account_number: ravenAccount.account_number,
+      account_name: ravenAccount.account_name,
+      bank: ravenAccount.bank
+    };
+
+    await db('accounts').insert(accountData);
+
+    res.status(201).json({
+      message: 'User created successfully',
+      user,
+      account: accountData
+    });
+
   } catch (err) {
+    console.error('Signup error:', err);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
