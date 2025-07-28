@@ -32,6 +32,43 @@ const createVirtualAccount = async (user) => {
   }
 };
 
+const initiateTransfer = async ({ account_number, bank_code, bank, account_name, amount, narration, reference, currency = 'NGN' }) => {
+  try {
+    const payload = {
+      amount,
+      bank_code,
+      bank,
+      account_number,
+      account_name,
+      narration,
+      reference,
+      currency
+    };
+
+    const response = await axios.post(
+      'https://integrations.getravenbank.com/v1/transfers/create',
+      payload,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.RAVEN_API_KEY}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        }
+      }
+    );
+
+    return response.data.data;
+  } catch (error) {
+    if (error.response) {
+      console.error('Raven Transfer API Error:', error.response.data);
+    } else {
+      console.error('Raven Transfer Request Error:', error.message);
+    }
+    throw new Error('Failed to initiate transfer with Raven');
+  }
+};
+
 module.exports = {
   createVirtualAccount,
+  initiateTransfer
 };
