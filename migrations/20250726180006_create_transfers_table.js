@@ -2,16 +2,22 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.up = function (knex) {
-  return knex.schema.createTable('transfers', (table) => {
+exports.up = function(knex) {
+  return knex.schema.createTable('transfers', function(table) {
     table.increments('id').primary();
-    table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE');
-    table.decimal('amount', 10, 2).notNullable();
-    table.string('recipient_account').notNullable();
-    table.string('recipient_bank_code').notNullable();
-    table.string('reference').notNullable();
+    table.integer('user_id').unsigned().notNullable().references('id').inTable('users').onDelete('CASCADE');
+    table.string('email').nullable();                
+    table.string('trx_ref').notNullable();
+    table.string('merchant_ref').nullable(); 
+    table.integer('amount').notNullable();
+    table.string('bank').notNullable();
+    table.string('bank_code').notNullable();
+    table.string('account_number').notNullable();
+    table.string('account_name').notNullable();
+    table.string('narration').nullable();
+    table.integer('fee').nullable();
     table.string('status').defaultTo('pending');
-    table.timestamps(true, true);
+    table.timestamp('created_at').defaultTo(knex.fn.now());
   });
 };
 
