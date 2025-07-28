@@ -2,14 +2,14 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.up = function (knex) {
-  return knex.schema.createTable('transactions', (table) => {
+exports.up = function(knex) {
+  return knex.schema.createTable('transactions', function(table) {
     table.increments('id').primary();
-    table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE');
-    table.enum('type', ['deposit', 'transfer']).notNullable();
-    table.decimal('amount', 10, 2).notNullable();
-    table.string('reference').notNullable();
-    table.string('status').defaultTo('successful');
+    table.integer('user_id').unsigned().notNullable().references('id').inTable('users').onDelete('CASCADE');
+    table.string('type').notNullable(); // 'deposit', 'transfer', etc.
+    table.decimal('amount', 14, 2).notNullable();
+    table.string('reference').notNullable().unique();
+    table.string('description').nullable();
     table.timestamps(true, true);
   });
 };
@@ -18,6 +18,6 @@ exports.up = function (knex) {
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.down = function (knex) {
-  return knex.schema.dropTable('transactions');
+exports.down = function(knex) {
+  return knex.schema.dropTableIfExists('transactions');
 };
