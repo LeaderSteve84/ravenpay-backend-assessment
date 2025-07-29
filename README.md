@@ -81,7 +81,7 @@ npm test
 
 ### 📮 API Documentation
 All API endpoints are documented in Postman.
-🔗 Postman Collection: Click here to view
+🔗 Postman Collection: [Click here to view](https://documenter.getpostman.com/view/47095943/2sB3B7QEjh)
 
 ### 🧾 Important Notes
 Webhooks are tested using webhook.site
