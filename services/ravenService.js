@@ -66,6 +66,26 @@ const initiateTransfer = async ({ account_number, bank_code, bank, account_name,
     }
     throw new Error('Failed to initiate transfer with Raven');
   }
+
+  // Mock response
+  /**
+  console.warn('Mock transfer: Raven transfer not enabled for this merchant.');
+  const createdAt = new Date().toISOString().slice(0, 19).replace('T', ' ');
+  return {
+    trx_ref: `mock_${Date.now()}`,
+    email: 'mailstephenreal@gmail.com',
+    merchant_ref: reference,
+    amount: amount,
+    bank: bank,
+    bank_code: bank_code,
+    account_number: account_number,
+    account_name: account_name,
+    narration: narration,
+    fee: 0,
+    status: 'pending',
+    created_at: createdAt
+  };
+  **/
 };
 
 module.exports = {
