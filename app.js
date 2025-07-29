@@ -12,9 +12,13 @@ const app = express();
 app.use(express.json());
 app.use(morgan("dev")); // Logs requests in 'dev' format
 
-app.use('/api/auth', authRoutes);
-app.use('/api/webhook', webhookRoutes);
-app.use('/api/transfer', transferRoutes);
-app.use('/api/history', historyRoutes);
+app.use('/api/auth', authRoutes); // Mount auth routes
+app.use('/api/webhook', webhookRoutes); // Mount webhook route
+app.use('/api/transfer', transferRoutes); // Mount transfer route
+app.use('/api/history', historyRoutes); // Mount history routes
+
+app.get('/', (req, res) => {
+  res.send('Welcome to RavenPay API');
+});
 
 module.exports = app;
