@@ -27,6 +27,7 @@ exports.sendMoney = async (req, res) => {
 
     const {
       trx_ref,
+      email,
       merchant_ref,
       fee,
       status,
@@ -35,6 +36,8 @@ exports.sendMoney = async (req, res) => {
 
     // Get the user_id from req.user if auth is implemented; 
     const user_id = req.user?.id || 1;
+
+    const createdAt = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
     // Save to transfers table
     await db('transfers').insert({
@@ -50,7 +53,7 @@ exports.sendMoney = async (req, res) => {
       narration,
       fee,
       status,
-      created_at: created_at || new Date()
+      created_at: created_at || createdAt
     });
 
     // Save to transactions table
